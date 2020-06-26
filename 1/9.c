@@ -8,25 +8,21 @@ int main() {
     int p;
     int q;
     scanf("%d%d", &p, &q);
-    printf("%.4f\n", bisection(p, q, f));
+    printf("%.4lf\n", bisection(p, q, f));
     return 0;
 }
 
 double bisection(int p, int q, double (*func)(int, int, double)) {
-    int a,b,c;
-    a=-20;
-    b=20;
-    c=(a+b)/2;
-    while(f(p,q,c)>=EPSILON){
-        if(f(p,q,a)*f(p,q,c)<0){
-            b=c;
-        }
-        else{
-            a=c;
-        }
-        c=(a+b)/2.0;
+    double a=-20;
+    double b=20;
+    while(fabs(f(p,q,(a+b)/2))>=EPSILON)
+    { 
+      if(f(p,q,(a+b)/2) * f(p,q,b) < 0)
+        a=(a+b)/2;
+      else
+        b=(a+b)/2;
     }
-    return c;
+    return (a+b)/2;
 }
 
 double f(int p, int q, double x) {
